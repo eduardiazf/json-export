@@ -24,11 +24,11 @@ var join = function join(arr) {
 };
 
 var jsonExport = function jsonExport(args) {
-  var opts = (0, _xtend2.default)(args, defaults);
+  var opts = (0, _xtend2.default)(defaults, args);
 
-  var thead = '<thead><tr>' + join(opts.header.map(function (header) {
+  var thead = '<thead><tr>' + opts.header.map(function (header) {
     return '<th>' + header + '</th>';
-  })) + '</tr></thead>';
+  }).join('') + '</tr></thead>';
 
   var tbody = '<tbody>' + opts.data.map(function (dt) {
     return '<tr>' + opts.keys.map(function (k) {
@@ -39,7 +39,7 @@ var jsonExport = function jsonExport(args) {
   var data = tpl.replace('{{table-data}}', '' + thead + tbody).replace('{{type}}', opts.type);
   var base64Data = _jsBase.Base64.encode(data);
 
-  window.open('data:application/vnd.ms-' + opts.type + ';filename=' + opts.filename + '.doc;base64,' + base64Data);
+  window.open('data:application/vnd.ms-' + opts.type + ';filename=' + opts.filename + '.' + opts.ext + ';base64,' + base64Data);
 };
 
 module.exports = jsonExport;

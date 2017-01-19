@@ -16,7 +16,7 @@ let tpl = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:
 const join = (arr) => (arr.join(''));
 
 const jsonExport = (args) => {
-  const opts = xtend(args, defaults);
+  const opts = xtend(defaults, args);
 
   const thead = `<thead><tr>${opts.header.map((header) => (`<th>${header}</th>`)).join('')}</tr></thead>`;
 
@@ -25,7 +25,7 @@ const jsonExport = (args) => {
   const data = tpl.replace('{{table-data}}', `${thead}${tbody}`).replace('{{type}}', opts.type);
 	const base64Data = Base64.encode(data);
 
-	window.open(`data:application/vnd.ms-${opts.type};filename=${opts.filename}.doc;base64,${base64Data}`);
+	window.open(`data:application/vnd.ms-${opts.type};filename=${opts.filename}.${opts.ext};base64,${base64Data}`);
 }
 
 module.exports = jsonExport;
