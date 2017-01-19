@@ -39,6 +39,8 @@ var jsonExport = function jsonExport(args) {
   var data = tpl.replace('{{table-data}}', '' + thead + tbody).replace('{{type}}', opts.type);
   var base64Data = _jsBase.Base64.encode(data);
 
+	console.log(opts);
+
   window.open('data:application/vnd.ms-' + opts.type + ';filename=' + opts.filename + '.' + opts.ext + ';base64,' + base64Data);
 };
 

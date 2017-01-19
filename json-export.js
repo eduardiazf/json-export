@@ -5,7 +5,7 @@ import { Base64 } from 'js-base64';
 const defaults = {
   filename: 'download',
   type: 'excel',
-  ext: 'xls',
+  ext: 'xlsx',
 };
 
 let tpl = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:{{type}}" xmlns="http://www.w3.org/TR/REC-html40">'
@@ -25,7 +25,10 @@ const jsonExport = (args) => {
   const data = tpl.replace('{{table-data}}', `${thead}${tbody}`).replace('{{type}}', opts.type);
 	const base64Data = Base64.encode(data);
 
-	window.open(`data:application/vnd.ms-${opts.type};filename=${opts.filename}.${opts.ext};base64,${base64Data}`);
+  const link = document.createElement("a");
+  link.download = opts.filename + '.' + opts.ext;
+  link.href = 'data:application/vnd.ms-' + opts.type + ';base64,' + base64Data
+  link.click();
 }
 
 module.exports = jsonExport;
